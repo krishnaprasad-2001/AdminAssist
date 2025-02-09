@@ -1,4 +1,6 @@
 #!/bin/bash
+
+source /root/AdminAssist/db.sh
 wp_url="https://wordpress.org/latest.zip"
 main() {
 	if grep -q "wp-blog-header.php" index.php 
@@ -25,6 +27,9 @@ main() {
 					;;
 				theme)
 					wp_theme;
+					;;
+				fix_db)
+					fix_db;
 					;;
 				*)
 					check_wp;
@@ -77,20 +82,6 @@ check_wp(){
 		 # fi
 	fi
 }
-
-wp_db(){
-	if [ -e wp-config.php ]
-	then
-		echo "Database details"
-		echo "==================="
-		less wp-config.php|egrep 'DB_USER|DB_NAME|DB_PASSWORD|DB_HOST|\$table_prefix'
-		echo "==================="
-	else
-		echo "configuration file not found"
-		return 0;
-	fi
-}
-
 check_file(){
 	if [ -e index.php ]
 	then
