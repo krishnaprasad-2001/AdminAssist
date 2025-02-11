@@ -127,6 +127,9 @@ init(){
 		wpinstall)
 			wp_install;
 		;;
+		--h)
+			get_help;
+		;;
 		*)
 			main "$@"
 		;;
@@ -172,4 +175,15 @@ wp_install(){
 	rm -rf wordpress.org
 	chown -R $user. * 
 }
+
+get_help(){
+	echo "deb -> to get the status of the debug mode 
+	tdeb -> toggle debug mode 
+	db -> Get the database details 
+	upgrade -> Upgrade the wordpress installation 
+	theme -> list out the themes in wordpress 
+	fix_db -> fix database connectivity error 
+	apache -> displays the apache error logs"
+}
+
 init "$@"
