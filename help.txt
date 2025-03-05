@@ -1,0 +1,8 @@
+### This is the help file, you can just add the module details upon expansion
+deb -> to get the status of the debug mode 
+tdeb -> toggle debug mode 
+db -> Get the database details 
+upgrade -> Upgrade the wordpress installation 
+theme -> list out the themes in wordpress 
+fix_db -> fix database connectivity error 
+apache -> displays the apache error logs
