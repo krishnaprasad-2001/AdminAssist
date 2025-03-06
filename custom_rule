@@ -1,0 +1,6 @@
+if ($host = 'testdomain.com') {
+	set $PROXY_DOMAIN_OR_IP "placeholderIp";
+}
+if ($host = 'www.testdomain.com') {
+	set $PROXY_DOMAIN_OR_IP "placeholderIp";
+}

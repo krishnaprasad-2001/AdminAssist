@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# sourcing the file containing the Tools for database 
-source /root/AdminAssist/db.sh
+# sourcing the file containing the Tools for database coloring and other configuration
 source configuration.conf
+source /root/AdminAssist/db.sh
+source ansi_colors.sh
 
 # Wordpress latest version to use for upgrade
 wp_url="https://wordpress.org/latest.zip"
@@ -169,6 +170,26 @@ init(){
 			fi
 			grep -i $(echo $domain |tr A-Z a-z) $nginxErrorLog |less
 		;;
+		add_custom_rule)
+			domain=$2;
+			sed "s/testdomain.com/$domain/g" custom_rule |sed "s/placeholderIp/$(hostname -i)/g"
+			read -p "Please confirm to add the above to the custom_rules(Use y or Y):  "
+			confirmation=$REPLY
+			if [[ "$confirmation" == "y" || "$confirmation" == "Y" ]]
+			then
+				if [[ -f custom_rule && -w $nginx_custom_file ]]; then
+
+					sed "s/testdomain.com/$domain/g" custom_rule | sed "s/154.0.160.141/$(hostname -i)/g" >> "$nginx_custom_file"
+
+					echo "Custom rules added successfully."
+
+				else
+
+					echo -e "${RED}Error: custom_rule file does not exist or $nginx_custom_file is not writable.${NC}"
+
+				fi
+			fi
+			;; 
 		wpinstall)
 			wp_install;
 		;;
