@@ -13,7 +13,7 @@ AdminAssist is a powerful tool designed to assist server administrators and supp
 ## Getting Started
 
 * Clone the repository:
-  git clone https://github.com/yourusername/AdminAssist.git
+  git clone https://github.com/krishnaprasad-2001/AdminAssist.git
   cd AdminAssist
 
 * Run the Installer
@@ -22,7 +22,7 @@ AdminAssist is a powerful tool designed to assist server administrators and supp
 
 * Enable Auto-Completion (Optional)
   To enable tab completion, run:
-  source /opt/AdminAssist/additional.sh
+  source /opt/AdminAssist/autoCompletion.sh
 
 ## Usage
 Once installed, you can use AdminAssist through the BK command:
@@ -37,8 +37,6 @@ Once installed, you can use AdminAssist through the BK command:
 ## Troubleshooting
 If you already have an existing installation, you'll see the message:
 Existing installation found  
-If you want to upgrade the script, please run BK.sh upgrade. To upgrade, simply run:
-BK upgrade
 
 ## Modules
 - BK.sh – Main script handling commands.
