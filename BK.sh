@@ -1,13 +1,16 @@
 #!/bin/bash
-
+# flog command used in each function to log details when each function is invoked to the command.log file 
 # sourcing the file containing the Tools for database coloring and other configuration
 # Resolve script directory even if BK.sh is executed from another location
 BASE_DIR=$(dirname "$(realpath "$0")")
 
 # Load required files using absolute paths
+source "$BASE_DIR/log.sh"
 source "$BASE_DIR/configuration.conf"
 source "$BASE_DIR/ansi_colors.sh"
 source "$BASE_DIR/Wordpress.sh"
+source "$BASE_DIR/Nginx.sh"
+source "$BASE_DIR/log.sh"
 custom_rule="$BASE_DIR/custom_rule"
 
 # Wordpress latest version to use for upgrade
@@ -15,6 +18,7 @@ wp_url="https://wordpress.org/latest.zip"
 
 # main function 
 main() {
+	flog
 	installation=$(find_installation);
 	case "$installation" in
 		wp)
@@ -27,10 +31,9 @@ main() {
 	esac
 }
 
-
-
 # check if installation is wordpress
 check_wp(){
+	flog
 	if grep -q "wp-blog-header.php" index.php 
 	then
 		 echo "Wordpress installation found"
@@ -55,6 +58,7 @@ check_wp(){
 
 # Initially check for the index file itself and only proceed with the main function if the index file is present
 check_file(){
+	flog
 	if [ -e index.php ]
 	then
 		main "$@"
@@ -66,6 +70,7 @@ check_file(){
 
 # check if the server is a cPanel server or not ( if not, the implementaion could differ)
 check_cpanel(){
+	flog
 	if [ -e /etc/trueuserdomains ]
 	then
 		return 0;
@@ -77,6 +82,7 @@ check_cpanel(){
 # Checking the username GetUserAndDomainDetailsFromCurrentLocation and getting the domain name GetUserAndDomainDetailsFromCurrentLocation from the username 
 # This will only work on the cPanel server.
 GetUserAndDomainDetailsFromCurrentLocation(){
+	flog
 	if ! check_cpanel 
 	then 
 		echo "The server does not seems to be cPanel sever" 
@@ -96,6 +102,8 @@ GetUserAndDomainDetailsFromCurrentLocation(){
 
 # init function where the program execution begins
 init(){
+	log
+	flog
 	case "$1" in
 		apache)
 			check_cpanel
@@ -115,34 +123,10 @@ init(){
 			grep $domain $apacheErrorLog|less
 			;;
 		nginx)
-			read -p "Enter the domain name(Press enter if you are already in the homedirectory): "
-			domain=$REPLY
-			if [ -z $domain ]
-			then 
-				echo "no domain provided"
-				read user domain < <(GetUserAndDomainDetailsFromCurrentLocation);
-			fi
-			grep -i $(echo $domain |tr A-Z a-z) $nginxErrorLog |less
+			checkNginxErrorLog
 		;;
 		add_custom_rule)
-			domain=$2;
-			sed "s/testdomain.com/$domain/g" $custom_rule |sed "s/placeholderIp/$(hostname -i)/g"
-			read -p "Please confirm to add the above to the custom_rules(Use y or Y):  "
-			confirmation=$REPLY
-			if [[ "$confirmation" == "y" || "$confirmation" == "Y" ]]
-			then
-				if [[ -f custom_rule && -w $nginx_custom_file ]]; then
-
-					sed "s/testdomain.com/$domain/g" custom_rule | sed "s/154.0.160.141/$(hostname -i)/g" >> "$nginx_custom_file"
-
-					echo "Custom rules added successfully."
-
-				else
-
-					echo -e "${RED}Error: custom_rule file does not exist or $nginx_custom_file is not writable.${NC}"
-
-				fi
-			fi
+			add_custom_rule "$@"
 			;; 
 		uninstall)
 			uninstall;
@@ -161,9 +145,12 @@ init(){
 
 # Help functionality
 get_help(){ 
+	flog
 	cat help.txt |grep -v "###"
 }
+
 find_installation(){
+	flog
 	if [ -f index.php ]
 	then
 		if grep -q "wp-blog-header.php" index.php ]] # checking for the wp-blog-header reference in the index file(to confirm the installation kind)
@@ -176,6 +163,10 @@ find_installation(){
 }
 
 uninstall(){
+	flog
+
+	# Removing the shortcut from the bashrc file to prevent error as autocompletion file would be removed
+	sed -i '/\/opt\/AdminAssist\/autoCompletion.sh/d' ~/.bashrc &> $ERROR_LOG
 	rm -r /opt/AdminAssist /usr/bin/BK || echo "Corrupt installation removed" 
 }
 
