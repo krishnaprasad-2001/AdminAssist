@@ -1,79 +1,33 @@
 #!/bin/bash
 
 # sourcing the file containing the Tools for database coloring and other configuration
-source configuration.conf
-source /root/AdminAssist/db.sh
-source ansi_colors.sh
+# Resolve script directory even if BK.sh is executed from another location
+BASE_DIR=$(dirname "$(realpath "$0")")
+
+# Load required files using absolute paths
+source "$BASE_DIR/configuration.conf"
+source "$BASE_DIR/ansi_colors.sh"
+source "$BASE_DIR/Wordpress.sh"
+custom_rule="$BASE_DIR/custom_rule"
 
 # Wordpress latest version to use for upgrade
 wp_url="https://wordpress.org/latest.zip"
 
 # main function 
 main() {
-	if grep -q "wp-blog-header.php" index.php  # checking for the wp-blog-header reference in the index file(to confirm the installation kind)
-	then
-		installation="wp";
-	fi
+	installation=$(find_installation);
 	case "$installation" in
 		wp)
-			case "$1" in
-				deb) 
-					check_debug; # check the debug mode in the installation 
-					;;
-				tdeb)
-					toggle_debug; # Toggle the debug mode in the installation 
-
-					;;
-				db)
-					wp_db;
-					;;
-				upgrade)
-					wp_upgrade;
-					;;
-				plugin)
-					wp_plugin;
-					;;
-				theme)
-					wp_theme;
-					;;
-				fix_db)
-					fix_db;
-					;;
-				*)
-					check_wp;
-					;;
-			esac
+			wordpress "$@"
 			;;
 		*)
-			echo "❌ Unknown module: $1"
+			echo "❌ Unknown module: $1";
+			get_help
 			;;
 	esac
 }
 
-# check and print  the debug status 
-check_debug(){
-	LINE=$(grep "define( 'WP_DEBUG'" wp-config.php)
-	if echo "$LINE" | grep -q "true"; then
-		echo "✅ Debug mode is now ENABLED"
-	else
-		echo "❌ Debug mode is now DISABLED"
-	fi
-}
 
-# print and toggle the debut status and finally calls the check_debug function to print the status after the toggle 
-toggle_debug(){
-	line=$(cat -n wp-config.php|grep "define( 'WP_DEBUG'" |awk '{print $1}')
-	LINE=$(grep "define( 'WP_DEBUG'" wp-config.php)
-	if echo "$LINE" | grep -q "true"; then
-		echo "✅ Debug mode was ENABLED"
-		sed -i "$line s/true/false/g" wp-config.php
-	else
-		echo "❌ Debug mode was DISABLED"
-		sed -i "$line s/false/true/g" wp-config.php
-	fi
-	check_debug
-	(grep "define( 'WP_DEBUG'" wp-config.php)
-}
 
 # check if installation is wordpress
 check_wp(){
@@ -172,7 +126,7 @@ init(){
 		;;
 		add_custom_rule)
 			domain=$2;
-			sed "s/testdomain.com/$domain/g" custom_rule |sed "s/placeholderIp/$(hostname -i)/g"
+			sed "s/testdomain.com/$domain/g" $custom_rule |sed "s/placeholderIp/$(hostname -i)/g"
 			read -p "Please confirm to add the above to the custom_rules(Use y or Y):  "
 			confirmation=$REPLY
 			if [[ "$confirmation" == "y" || "$confirmation" == "Y" ]]
@@ -190,6 +144,9 @@ init(){
 				fi
 			fi
 			;; 
+		uninstall)
+			uninstall;
+		;;
 		wpinstall)
 			wp_install;
 		;;
@@ -202,57 +159,24 @@ init(){
 	esac
 }
 
-# The function to upgrade the wordpress version prestnt in the domain
-wp_upgrade(){
-	wget -p $wp_url;
-	read user domain < <(GetUserAndDomainDetailsFromCurrentLocation);
-	if [[ -e index.php ]]
-	then
-		rm -rf wordpress
-	fi
-	unzip -q wordpress.org/latest.zip
-	#rsync -avz --quiet --inplace wordpress/wp-includes/* wp-includes/
-	#rsync -avz --quiet --inplace wordpress/wp-admin/* wp-admin/
-	mv -n wordpress/wp-includes wp-includes
-	mv -n wordpress/wp-admin wp-admin
-	rm -rf wordpress.org
-	chown -R $user. wp-includes
-	chown -R $user. wp-admin
-}
-
-# Lists out the plugins in the installation (Good for debugging)
-wp_plugin(){
-	plugind=$(find . -type d -name plugins |grep -v "wp-include" |grep -v "wordpress/wp-cont")
-	echo "plugin in $plugind"
-	ls -al $plugind
-}
-
-# Lists out the themes in the installation 
-wp_theme(){
-	themed=$(find . -type d -name themes |grep -v "wp-include" |grep -v "wordpress/wp-cont")
-	echo "theme in $themed"
-	ls -al $themed
-}
-
-# Code for installing wordpress without UI
-wp_install(){
-	wget -p $wp_url;
-	read user domain < <(GetUserAndDomainDetailsFromCurrentLocation);
-	if [[ -e index.php ]]
-	then
-		rm -rf wordpress
-	fi
-	unzip -q wordpress.org/latest.zip
-	#rsync -avz --quiet --inplace wordpress/wp-includes/* wp-includes/
-	#rsync -avz --quiet --inplace wordpress/wp-admin/* wp-admin/
-	mv -n wordpress/*
-	rm -rf wordpress.org
-	chown -R $user. * 
-}
-
 # Help functionality
 get_help(){ 
 	cat help.txt |grep -v "###"
+}
+find_installation(){
+	if [ -f index.php ]
+	then
+		if grep -q "wp-blog-header.php" index.php ]] # checking for the wp-blog-header reference in the index file(to confirm the installation kind)
+		then
+			echo "wp"
+		else 
+			echo "joomla"
+		fi
+	fi
+}
+
+uninstall(){
+	rm -r /opt/AdminAssist /usr/bin/BK || echo "Corrupt installation removed" 
 }
 
 init "$@"
