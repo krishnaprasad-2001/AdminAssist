@@ -45,29 +45,5 @@ Existing installation found
 - autoCompletion.sh – Provides shell auto-completion.
 - configuration.conf – Stores user-defined settings.
 
-\u26a0\ufe0f Autocompletion Issue
-
-We've noticed that autocompletion isn't working as expected when opening a new shell. It only works after manually sourcing the completion file using:
-
-source /opt/AdminAssist/autoCompletion.sh
-
-\ud83d\udee0 What's Happening?
-
-The completion script exists but doesn't load automatically.
-
-It only works when sourced manually.
-
-\ud83e\udd14 Possible Causes:
-
-The completion script might not be in the correct location.
-
-The shell might not be loading it at startup.
-
-There could be an issue with how Bash is handling autocompletion.
-
-\ud83d\udd0d Need Help!
-
-If you have any ideas or solutions, feel free to open an issue or submit a pull request! \ud83d\ude80
-
 ## Contributing
 We welcome contributions! Fork, make changes, and submit a pull request.

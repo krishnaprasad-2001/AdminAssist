@@ -6,6 +6,7 @@ BASE_DIR=$(dirname "$(realpath "$0")")
 
 # Load required files using absolute paths
 source "$BASE_DIR/log.sh"
+source "$BASE_DIR/IP.sh"
 source "$BASE_DIR/fun.sh"
 source "$BASE_DIR/configuration.conf"
 source "$BASE_DIR/ansi_colors.sh"
@@ -132,6 +133,9 @@ init(){
 		add_custom_rule)
 			add_custom_rule "$@"
 			;; 
+	       ipcheck)
+			is_private_ip "$@"
+			;; 
 		uninstall)
 			uninstall;
 		;;
@@ -174,7 +178,7 @@ uninstall(){
 	rm -r /opt/AdminAssist /usr/bin/BK 2>> $ERROR_LOG 
 	if [ $? -ne 0 ]
 	then
-		echo "Corrupt installation removed"  
+		echo "installation removed"  
 	fi
 
 }
