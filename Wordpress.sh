@@ -3,6 +3,7 @@
 backupPostfix=$(date |tr " " _ |tr : _)
 BASE_DIR=$(dirname "$(realpath "$0")")
 source "$BASE_DIR/log.sh"
+source "$BASE_DIR/Debug.sh"
 
 wordpress(){
 	case "$1" in
@@ -46,11 +47,11 @@ wp_upgrade(){
 	unzip -q wordpress.org/latest.zip
 	#rsync -avz --quiet --inplace wordpress/wp-includes/* wp-includes/
 	#rsync -avz --quiet --inplace wordpress/wp-admin/* wp-admin/
-	mv -n wordpress/wp-includes wp-includes
-	mv -n wordpress/wp-admin wp-admin
-	rm -rf wordpress.org
-	chown -R $user. wp-includes
-	chown -R $user. wp-admin
+	execute mv -n wordpress/wp-includes wp-includes
+	execute mv -n wordpress/wp-admin wp-admin
+	execute rm -rf wordpress.org
+	execute chown -R $user. wp-includes
+	execute chown -R $user. wp-admin
 }
 
 # Lists out the plugins in the installation (Good for debugging)
@@ -81,12 +82,12 @@ wp_install(){
 			REPLY=$(echo "$REPLY" | xargs)
 			if [[ $REPLY = "y" || $REPLY = "Y" ]]
 			then
-				mkdir -p wordpress_$(echo "$backupPostfix")
-				mv wordpress/* wordpress_$(echo "$backupPostfix")
+				execute mkdir -p wordpress_$(echo "$backupPostfix")
+				execute mv wordpress/* wordpress_$(echo "$backupPostfix")
 				if [ $? -ne 0 ]
 				then
 					echo "something went wrong with the moving"
-					exit 0;
+				# 	exit 0;
 				fi
 
 				echo "=============================" 
@@ -111,14 +112,11 @@ wp_install(){
 	read user domain < <(GetUserAndDomainDetailsFromCurrentLocation);
 	if [[ -e index.php ]]
 	then
-		rm -rf wordpress
+		execute rm -rf wordpress
 	fi
-	unzip -qo wordpress.org/latest.zip
-	#rsync -avz --quiet --inplace wordpress/wp-includes/* wp-includes/
-	#rsync -avz --quiet --inplace wordpress/wp-admin/* wp-admin/
-	# mv -n wordpress/*
-	rm -rf wordpress.org
-	chown -R $user. * &>/dev/null
+	execute unzip -qo wordpress.org/latest.zip
+	execute rm -rf wordpress.org
+	execute chown -R $user. * 
 }
 
 # print and toggle the debut status and finally calls the check_debug function to print the status after the toggle 
@@ -192,8 +190,8 @@ cleanup(){
 	echo
 	echo -ne "$RED"
 	echo "Cancelling installation and cleaning up"
-	rm -rf latest.zip &>/dev/null
-	rm -rf wordpress.org &>/dev/null
+	execute rm -rf latest.zip 
+	execute rm -rf wordpress.org
 	exit 4;
 }
 

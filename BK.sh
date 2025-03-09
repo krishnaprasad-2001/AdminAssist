@@ -6,6 +6,7 @@ BASE_DIR=$(dirname "$(realpath "$0")")
 help_file="$BASE_DIR/help.txt"
 
 # Load required files using absolute paths
+source "$BASE_DIR/Debug.sh"
 source "$BASE_DIR/log.sh"
 source "$BASE_DIR/IP.sh"
 source "$BASE_DIR/fun.sh"
@@ -174,8 +175,8 @@ uninstall(){
 	flog
 	print_sad_dog
 	# Removing the shortcut from the bashrc file to prevent error as autocompletion file would be removed
-	sed -i '/\/opt\/AdminAssist\/autoCompletion.sh/d' ~/.bashrc &> $ERROR_LOG
-	rm -r /opt/AdminAssist /usr/bin/BK 2>> $ERROR_LOG 
+	execute sed -i '/\/opt\/AdminAssist\/autoCompletion.sh/d' ~/.bashrc
+	execute rm -r /opt/AdminAssist /usr/bin/BK 
 	if [ $? -ne 0 ]
 	then
 		echo "installation removed"  
