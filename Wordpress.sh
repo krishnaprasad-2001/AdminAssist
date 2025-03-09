@@ -3,8 +3,6 @@
 backupPostfix=$(date |tr " " _ |tr : _)
 BASE_DIR=$(dirname "$(realpath "$0")")
 source "$BASE_DIR/log.sh"
-source "$BASE_DIR/progressBar.sh"
-
 
 wordpress(){
 	case "$1" in

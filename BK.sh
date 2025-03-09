@@ -28,8 +28,7 @@ main() {
 			wordpress "$@"
 			;;
 		*)
-			echo "Module $1 not found ❌";
-			echo "Please ensure you are in the right directory" 
+			echo "seems like you are lost"
 			echo 
 			print_doggy
 			get_help
