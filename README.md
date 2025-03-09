@@ -55,6 +55,7 @@ Existing installation found
 - `install.sh` – Install the script 
 - `BK.sh` – Main script handling commands.
 - `configuration.conf` – Stores user-defined settings.
+- `Debug.sh` – Stores the code that implements script debugging 
 - `log.sh` – Script specific logging functionality
 - `Nginx.sh` – Check for Nginx error logs
 - `db.sh` – Manages database-related tasks.
