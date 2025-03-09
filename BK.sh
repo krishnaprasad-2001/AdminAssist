@@ -3,6 +3,7 @@
 # sourcing the file containing the Tools for database coloring and other configuration
 # Resolve script directory even if BK.sh is executed from another location
 BASE_DIR=$(dirname "$(realpath "$0")")
+help_file="$BASE_DIR/help.txt"
 
 # Load required files using absolute paths
 source "$BASE_DIR/log.sh"
@@ -154,7 +155,7 @@ init(){
 # Help functionality
 get_help(){ 
 	flog
-	cat help.txt |grep -v "###"
+	cat $help_file |grep -v "###"
 }
 
 find_installation(){
@@ -180,7 +181,6 @@ uninstall(){
 	then
 		echo "installation removed"  
 	fi
-
 }
 
 init "$@"

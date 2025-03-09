@@ -33,14 +33,16 @@ source /opt/AdminAssist/autoCompletion.sh
 ## Usage
 Once installed, you can use AdminAssist through the `BK` command:
 ```bash
-BK deb       # Check debug mode  
-BK tdeb      # Toggle debug mode  
-BK db        # Get database details  
-BK upgrade   # Upgrade the WordPress installation  
-BK theme     # List installed WordPress themes  
-BK fix_db    # Fix database connectivity errors  
-BK apache    # View Apache error logs
-BK ipcheck   # Check if an ip is public or private
+BK deb              # Check debug mode  
+BK tdeb             # Toggle debug mode  
+BK db               # Get database details  
+BK upgrade          # Upgrade the WordPress installation  
+BK theme            # List installed WordPress themes  
+BK fix_db           # Fix database connectivity errors  
+BK nginx            # View nginx error logs
+BK apache           # View Apache error logs
+BK add_custom_rule  # Assist in adding nginx custom Rule  
+BK ipcheck          # Check if an ip is public or private
 ```
 
 ## Troubleshooting
