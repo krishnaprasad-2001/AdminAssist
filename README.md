@@ -52,11 +52,17 @@ Existing installation found
 ```
 
 ## Modules
+- `install.sh` – Install the script 
+- `log.sh` – Script specific logging functionality
+- `Nginx.sh` – Check for Nginx error logs
 - `BK.sh` – Main script handling commands.
 - `db.sh` – Manages database-related tasks.
 - `help.txt` – Stores help documentation.
 - `autoCompletion.sh` – Provides shell auto-completion.
 - `configuration.conf` – Stores user-defined settings.
+- `IP.sh` – To implement IP check 
+- `Wordpress.sh` – Everything about wordpress
+- `progressBar.sh` – Progress bar for wordpress installation
 
 ## ⚠️ Autocompletion Issue
 
