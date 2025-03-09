@@ -6,6 +6,7 @@ BASE_DIR=$(dirname "$(realpath "$0")")
 
 # Load required files using absolute paths
 source "$BASE_DIR/log.sh"
+source "$BASE_DIR/fun.sh"
 source "$BASE_DIR/configuration.conf"
 source "$BASE_DIR/ansi_colors.sh"
 source "$BASE_DIR/Wordpress.sh"
@@ -25,7 +26,10 @@ main() {
 			wordpress "$@"
 			;;
 		*)
-			echo "❌ Unknown module: $1";
+			echo "Module $1 not found ❌";
+			echo "Please ensure you are in the right directory" 
+			echo 
+			print_doggy
 			get_help
 			;;
 	esac
@@ -164,10 +168,15 @@ find_installation(){
 
 uninstall(){
 	flog
-
+	print_sad_dog
 	# Removing the shortcut from the bashrc file to prevent error as autocompletion file would be removed
 	sed -i '/\/opt\/AdminAssist\/autoCompletion.sh/d' ~/.bashrc &> $ERROR_LOG
-	rm -r /opt/AdminAssist /usr/bin/BK || echo "Corrupt installation removed" 
+	rm -r /opt/AdminAssist /usr/bin/BK 2>> $ERROR_LOG 
+	if [ $? -ne 0 ]
+	then
+		echo "Corrupt installation removed"  
+	fi
+
 }
 
 init "$@"
