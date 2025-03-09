@@ -7,7 +7,7 @@ checkNginxErrorLog(){
 		echo "no domain provided"
 		read user domain < <(GetUserAndDomainDetailsFromCurrentLocation);
 	fi
-	if [ $user = "user" ]
+	if [[ "${user:-}" == "user" ]]
 	then
 		echo -e "no user found\nScript exiting"
 		exit 1;
@@ -22,7 +22,7 @@ add_custom_rule()
 		echo "no domain found"
 		exit 1;
 	fi
-	sed "s/testdomain.com/$domain/g" $nginx_custom_file |sed "s/placeholderIp/$(hostname -i)/g"
+	sed "s/testdomain.com/$domain/g" $nginx_custom_template |sed "s/placeholderIp/$(hostname -i)/g"
 	echo
 	read -p "Please confirm to add the above to the custom_rules(Use y or Y):  "
 	confirmation=$REPLY
