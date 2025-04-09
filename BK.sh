@@ -91,7 +91,7 @@ GetUserAndDomainDetailsFromCurrentLocation(){
 	flog
 	if ! check_cpanel 
 	then 
-		echo "The server does not seems to be cPanel sever" 
+		echo "NoCpanel NoCpanel"
 		exit 1
 	fi
 	user=$(pwd| awk -F'/' '{print $3}')

@@ -116,7 +116,10 @@ wp_install(){
 	fi
 	execute unzip -qo wordpress.org/latest.zip
 	execute rm -rf wordpress.org
-	execute chown -R $user. * 
+	if [[ $user != "NoCpanel" ]]
+	then
+		execute chown -R $user. * 
+	fi
 }
 
 # print and toggle the debut status and finally calls the check_debug function to print the status after the toggle 
