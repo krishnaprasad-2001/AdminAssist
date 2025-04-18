@@ -86,7 +86,7 @@ install(){
 	print_doggy
 	execute_command echo -e "Execute \e[34m source /opt/AdminAssist/autoCompletion.sh \e[0m to enable tab completion"
 	execute_command echo "source $ASH/autoCompletion.sh" >> ~/.bashrc
-	execute_command # bash --rcfile <(cat ~/.bashrc; echo "source /opt/AdminAssist/autoCompletion.sh")
+	# execute_command # bash --rcfile <(cat ~/.bashrc; echo "source /opt/AdminAssist/autoCompletion.sh")
 	execute_command exec bash
 }
 
