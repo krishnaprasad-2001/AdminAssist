@@ -1,5 +1,9 @@
 BASE_DIR=$(dirname "$(realpath "$0")")
 checkNginxErrorLog(){
+	if [[ `ps -acx|grep nginx|wc -l` -le 0 ]]; then
+		echo "Not an nginx server"
+		exit 1;
+	fi
 	read -p "Enter the domain name(Press enter if you are already in the homedirectory): "
 	domain=$REPLY
 	if [ -z $domain ]

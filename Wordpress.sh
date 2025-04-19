@@ -195,6 +195,7 @@ cleanup(){
 	echo "Cancelling installation and cleaning up"
 	execute rm -rf latest.zip 
 	execute rm -rf wordpress.org
+	echo -ne "$NC"
 	exit 4;
 }
 

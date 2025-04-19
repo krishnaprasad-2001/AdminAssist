@@ -2,6 +2,7 @@
 deb -> to get the status of the debug mode 
 tdeb -> toggle debug mode 
 db -> Get the database details 
+dbDetails -> Get existing database details along with the username for a given user
 upgrade -> Upgrade the wordpress installation 
 theme -> list out the themes in wordpress 
 fix_db -> fix database connectivity error 

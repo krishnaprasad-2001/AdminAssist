@@ -15,6 +15,7 @@ source "$BASE_DIR/ansi_colors.sh"
 source "$BASE_DIR/Wordpress.sh"
 source "$BASE_DIR/Nginx.sh"
 source "$BASE_DIR/log.sh"
+source "$BASE_DIR/Cpanel.sh"
 custom_rule="$BASE_DIR/custom_rule"
 
 # Wordpress latest version to use for upgrade
@@ -75,36 +76,6 @@ check_file(){
 
 
 # check if the server is a cPanel server or not ( if not, the implementaion could differ)
-check_cpanel(){
-	flog
-	if [ -e /etc/trueuserdomains ]
-	then
-		return 0;
-	else
-	  	return 1;
-	fi
-}
-
-# Checking the username GetUserAndDomainDetailsFromCurrentLocation and getting the domain name GetUserAndDomainDetailsFromCurrentLocation from the username 
-# This will only work on the cPanel server.
-GetUserAndDomainDetailsFromCurrentLocation(){
-	flog
-	if ! check_cpanel 
-	then 
-		echo "NoCpanel NoCpanel"
-		exit 1
-	fi
-	user=$(pwd| awk -F'/' '{print $3}')
-	if grep -q $user /etc/trueuserdomains
-	then
-		domain=$(grep $user /etc/trueuserdomains |cut -d: -f1)
-		echo "$user $domain"
-	else # The server is a cPanel server, but the user is nowhere to be found
-		echo "user not found"
-		exit 0
-	fi
-}
-
 
 # init function where the program execution begins
 init(){
