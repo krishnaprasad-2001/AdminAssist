@@ -6,4 +6,5 @@ upgrade -> Upgrade the wordpress installation
 theme -> list out the themes in wordpress 
 fix_db -> fix database connectivity error 
 apache -> displays the apache error logs
-wpinstall -> Intsall Wordpress 
+wpinstall -> Install Wordpress 
+ipcheck -> Check if IP is private or public

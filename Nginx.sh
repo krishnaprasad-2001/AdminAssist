@@ -12,6 +12,11 @@ checkNginxErrorLog(){
 		echo -e "no user found\nScript exiting"
 		exit 1;
 	fi
+	if [[ $user == "NoCpanel" ]]
+	then
+		echo -e "no user found\nScript exiting"
+		exit 1;
+	fi
 	grep -i $(echo $domain |tr A-Z a-z) $nginxErrorLog |less
 }
 add_custom_rule()

@@ -181,11 +181,9 @@ function install_main {
 		install_opts+=:exit
 	else
 		if [[ :$install_opts: == *:version:* ]]; then
-			_omb_install_print_version
 			install_opts+=:exit
 		fi
 		if [[ :$install_opts: == *:usage:* ]]; then
-			_omb_install_print_usage
 			install_opts+=:exit
 		fi
 	fi
