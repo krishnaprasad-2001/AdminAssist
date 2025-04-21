@@ -65,3 +65,19 @@ print_sad_dog() {
 	    /_____/   U
 	    '
 }
+
+# Yes yes this is the fancy spinner thing that rotates to keep them from checking out the snaps from their so called no existent GF :) 
+spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinner=("/" "-" "\\" "|")
+    local i=0
+    local spinstr=" Processing..."
+
+    while kill -0 "$pid" 2>/dev/null; do
+        printf "\r%s%s" "${spinner[i]}" "$spinstr"
+        i=$(( (i + 1) % 4 ))
+        sleep "$delay"
+    done
+    
+}

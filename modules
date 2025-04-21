@@ -1,0 +1,16 @@
+[Script_core]=BK.sh
+[Script_coloring]=ansi_colors.sh
+[script_autoCompletion]=autoCompletion.sh
+[Script_custom_configuration]=configuration.conf
+[cPanel_functions]=Cpanel.sh
+[Custom_rule_template_for_nginx]=custom_rule
+[Database_operations]=Database.sh
+[Script_DEBUG}=Debug.sh
+[Custom_banners_and_functions]=fun.sh
+[Help]=help.txt
+[Script_installation]=install.sh
+[IP_operation]=IP.sh
+[Script_logging]=log.sh
+[Nginx_operation]=Nginx.sh
+[Script_health_check]=ScriptHealth.sh
+[WOrdpress_analysis]=Wordpress.sh

@@ -15,6 +15,7 @@ source "$BASE_DIR/ansi_colors.sh"
 source "$BASE_DIR/Wordpress.sh"
 source "$BASE_DIR/Nginx.sh"
 source "$BASE_DIR/log.sh"
+source "$BASE_DIR/ScriptHealth.sh"
 source "$BASE_DIR/Cpanel.sh"
 custom_rule="$BASE_DIR/custom_rule"
 
@@ -89,6 +90,11 @@ init(){
 			if [ -z $REPLY ]
 			then
 				read user domain < <(GetUserAndDomainDetailsFromCurrentLocation);
+				if [[ $user == "NoCpanel" ]]
+				then
+					echo -e "$RED""User not found$NC"
+					exit 1;
+				fi
 				echo "user :$user"
 				echo "domain :$domain"
 				if [[ -z $domain || -z $user ]];
@@ -116,6 +122,9 @@ init(){
 		;;
 		--h| --help| -help)
 			get_help;
+		;;
+		checkhealth|check_health)
+			check_health;
 		;;
 		*)
 			main "$@"

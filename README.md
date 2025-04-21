@@ -61,8 +61,10 @@ Existing installation found
 - `db.sh` – Manages database-related tasks.
 - `help.txt` – Stores help documentation.
 - `autoCompletion.sh` – Provides shell auto-completion.
-- `IP.sh` – To implement IP check 
+- `IP.sh` – IP modules
 - `Wordpress.sh` – Everything about wordpress
+- `Database.sh` – Everything Deep on the database
+- `Cpanel.sh` – Cpanel verification and other modules in the cPanel.
 
 ## ⚠️ Autocompletion Issue
 

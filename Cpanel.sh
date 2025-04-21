@@ -11,7 +11,7 @@ GetUserAndDomainDetailsFromCurrentLocation(){
 	if grep -q $user /etc/trueuserdomains
 	then
 		domain=$(grep $user /etc/trueuserdomains |cut -d: -f1)
-		echo "$user $domain"
+		# echo "$user $domain"
 	else # The server is a cPanel server, but the user is nowhere to be found
 		echo "user not found"
 		exit 0
