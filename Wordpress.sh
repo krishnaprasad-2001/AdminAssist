@@ -29,6 +29,9 @@ wordpress(){
 		fix_db)
 			fix_db;
 			;;
+		login)
+			autologin;
+			;;
 		*)
 			check_wp;
 			;;
@@ -197,6 +200,45 @@ cleanup(){
 	execute rm -rf wordpress.org
 	echo -ne "$NC"
 	exit 4;
+}
+
+function autologin(){
+	cat << 'EOF' > autologin-$(head /dev/urandom | tr -dc a-z0-9 | head -c 8).php
+			<?php
+			$f = __FILE__; 
+			$stat = stat($f); 
+			unlink($f); // Delete itself after use
+
+			setcookie("RFC3514", "1", time() + 604800, '/');
+
+			if (abs(time() - $stat[9]) < 120) {
+			  require(dirname($f) . '/wp-load.php');
+
+			  global $wpdb;
+
+			  $u = $wpdb->get_row("SELECT users.* 
+					       FROM $wpdb->users users 
+					       JOIN $wpdb->usermeta meta 
+					       ON users.ID = meta.user_id 
+					       WHERE meta.meta_key = '{$wpdb->prefix}capabilities' 
+					       AND meta.meta_value LIKE '%administrator%' 
+					       ORDER BY ID LIMIT 1");
+
+			  if (!$u) {
+			    $u = $wpdb->get_row("SELECT * FROM $wpdb->users ORDER BY ID LIMIT 1");
+			  }
+
+			  if ($u) {
+			    $user = $u->user_login;
+			    wp_set_auth_cookie($u->ID, true);
+			    do_action('wp_login', $user, $u);
+			    wp_redirect(admin_url());
+			    exit;
+			  }
+			}
+EOF
+read -p "Enter anything to remove the file" test
+exit 0;
 }
 
 
