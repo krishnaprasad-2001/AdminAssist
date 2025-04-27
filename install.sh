@@ -61,27 +61,17 @@ install(){
 		}
 	set_configuration
 	touch ${conf[ERROR_LOG]}
-	echo -e "\e[34mThe default installation log file is $ASH/ERROR_LOG\e[0m"
-	read -p "Do you want to change this? (y/n): " choice
-	if [[ "$choice" =~ ^(y|Y|yes|YES)$ ]] 
-	then 
-		vim +'call search("^custom_log_dir=") | normal $' "$BASE_DIR/configuration.conf"
-		#vim +/^custom_log_dir= "$BASE_DIR/configuration.conf"
-		#echo $BASE_DIR/configuration.conf
-		#line_number=$(grep -n "^custom_log_dir=" "$BASE_DIR/configuration.conf" | cut -d: -f1)
-		#vim $BASE_DIR/configuration.conf +$line_number
-		#read -p "Enter the new log location (e.g. /var/log): " choice
-		#if [[ $choice == /* ]]; then
-		#choice="$(echo "$input_path" | xargs)"
-		## Validate: must start with / and NOT end with /
-		#if [[ "$log_path" == /* && "${log_path: -1}" != "/" ]]; then
-		#sed "s|/home/.AdminAssist|$input_path|g" "$BASE_DIR/configuration.conf"
-		#vim "$ASH/configuration.conf"
-		#else
-		#echo "❌ Invalid path. It must start with '/' and must NOT end with '/'."
-		#fi
-		#fi
+	if [[ -t 0 ]]; then
+		# If running interactively, prompt user
+		read -p "Do you want to change this? (y/n): " choice
+		if [[ "$choice" =~ ^(y|Y|yes|YES)$ ]]; then 
+			vim +'call search("^custom_log_dir=") | normal $' "$BASE_DIR/configuration.conf"
+		fi
+	else
+		# Non-interactive mode, skip the prompt
+		echo "Running non-interactively, skipping user prompt."
 	fi
+
 	execute_command ln -s $ASH/BK.sh /usr/bin/BK &>> ${conf[ERROR_LOG]}
 	print_doggy
 	execute_command echo -e "Execute \e[34m source /opt/AdminAssist/autoCompletion.sh \e[0m to enable tab completion"
