@@ -1,0 +1,11 @@
+---
+- name: Ansible playbook for deploying AdminAssist with CI/ CD
+  hosts: production-server
+  tasks:
+    - name: deploy the application in the production servers
+      git:
+          repo: https://github.com/krishnaprasad-2001/AdminAssist
+          clone: yes
+          dest: /root/test
+          depth: 1
+

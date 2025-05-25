@@ -126,6 +126,9 @@ init(){
 		checkhealth|check_health)
 			check_health;
 		;;
+		chat|aichat)
+			chat;
+		;;
 		*)
 			main "$@"
 		;;
@@ -161,6 +164,10 @@ uninstall(){
 	then
 		echo "installation removed"  
 	fi
+}
+
+function chat(){
+	 $BASE_DIR/ChatAi.sh
 }
 
 init "$@"
