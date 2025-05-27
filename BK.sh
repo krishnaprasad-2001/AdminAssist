@@ -167,7 +167,7 @@ uninstall(){
 }
 
 function chat(){
-	 $BASE_DIR/chat.sh.x
+	 $BASE_DIR/chat
 }
 
 init "$@"
