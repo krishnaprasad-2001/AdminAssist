@@ -72,6 +72,8 @@ wp_theme(){
 
 # Code for installing wordpress without UI
 wp_install(){
+	# trap flag to ensure that the clearnup function is called (normally caled with the installation or upgrade processs)
+	trap cleanup sigint
 	flog
 	if [ -e wordpress ]
 	then 
@@ -87,7 +89,7 @@ wp_install(){
 				if [ $? -ne 0 ]
 				then
 					echo "something went wrong with the moving"
-				# 	exit 0;
+					# 	exit 0;
 				fi
 
 				echo "=============================" 
@@ -179,7 +181,7 @@ fix_db(){
 		else 
 			echo "failed"
 		fi
-			
+
 	else
 		echo "Database password not changed"
 	fi
@@ -200,5 +202,3 @@ cleanup(){
 }
 
 
-# Trap flag to ensure that the clearnup function is called (Normally caled with the installation or upgrade processs)
-trap cleanup SIGINT

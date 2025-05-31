@@ -1,5 +1,6 @@
 FROM debian:bookworm
 
-COPY . /root/AdminAssist
-
+COPY . /usr/bin/
+RUN ln /usr/bin/BK.sh /usr/bin/BK
 CMD ["bash"]
+

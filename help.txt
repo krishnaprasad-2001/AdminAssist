@@ -1,4 +1,5 @@
 ### This is the help file, you can just add the module details upon expansion
+chat -> to get a ai help bot
 deb -> to get the status of the debug mode 
 tdeb -> toggle debug mode 
 db -> Get the database details 
@@ -9,3 +10,5 @@ fix_db -> fix database connectivity error
 apache -> displays the apache error logs
 wpinstall -> Install Wordpress 
 ipcheck -> Check if IP is private or public
+dockertest -> Try out the installation by Docker container. 
+dockerforktest -> Try out your forked changes inside a Docker container.

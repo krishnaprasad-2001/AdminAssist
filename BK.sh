@@ -129,6 +129,12 @@ init(){
 		chat|aichat)
 			chat;
 		;;
+		dockertest)
+			dockertest;
+		;;
+		dockerforktest)
+			dockerforktest;
+		;;
 		*)
 			main "$@"
 		;;
@@ -170,4 +176,74 @@ function chat(){
 	 $BASE_DIR/chat
 }
 
+function dockertest() {
+	if command -v docker &>/dev/null
+	then
+		read -p 'enter the name of the container: '
+		container_name=$REPLY
+
+		if [[ "$container_name" =~ ^[a-z0-9]+([-.][a-z0-9]+)*$ ]]
+		then
+			:
+		else
+			read -p "Invalid Docker name. Proceed with the name admin-assist-docker ? ( Enter y or Y to proceed )"
+			    response=$REPLY
+			if [[ $response == 'y' || $response == 'Y' ]]
+			then
+				container_name='admin-assist-docker'
+			else
+				return 2 &>/dev/null || exit 2
+			fi
+		fi
+		read -p 'Do you want the tool to be pre-installed?'
+		response=$REPLY
+		echo "Proceeding with creating a container with the name $container_name"
+		if [[ $response == 'y' || $response == 'Y' ]]
+		then
+			sudo docker build --build-arg INSTALL_SCRIPT=true -t $container_name .	
+		else
+			sudo docker build -t $container_name .
+		fi
+		sudo docker run -it $container_name bash
+	else
+		echo "Docker does not seems to be installed"
+		exit
+	fi
+}
+
+function dockerforktest() {
+	if command -v docker &>/dev/null
+	then
+		read -p 'enter the name of the container: '
+		container_name=$REPLY
+		if [[ "$container_name" =~ ^[a-z0-9]+([-.][a-z0-9]+)*$ ]]
+		then
+		    echo "Proceeding with creating a container with the name $container_name"
+		else
+			read -p "Invalid Docker name. Proceed with the name admin-assist-fork ? ( Enter y or Y to proceed )"
+			    response=$REPLY
+			if [[ $response == 'y' || $response == 'Y' ]]
+			then
+			echo 'Generating container with tool installed'
+				container_name='admin-assist-fork'
+			else
+				return 2 &>/dev/null || exit 2
+			fi
+		fi
+		read -p 'Do you want the tool to be pre-installed?'
+		response=$REPLY
+		echo "Proceeding with creating a container with the name $container_name"
+		if [[ $response == 'y' || $response == 'Y' ]]
+		then
+			echo 'Generating container with tool installed'
+			sudo docker build --build-arg INSTALL_SCRIPT=true -t $container_name  -f Dockerfile2 .
+		else
+			sudo docker build -t $container_name -f Dockerfile2 .
+		fi
+		sudo docker run -it $container_name bash
+	else
+		echo "Docker does not seems to be installed"
+		exit
+	fi
+}
 init "$@"

@@ -7,6 +7,7 @@ AdminAssist is a powerful tool designed to assist server administrators and supp
 ## Why AdminAssist?
 
 - ✅ Best for WordPress Troubleshooting – Easily detect WordPress installations, check database connectivity, list installed themes, and fix common issues.
+- ✅ AI Chatbot – Online based AI chatbot that just helps you get things done. ( Since this is online chatbot, this only  works when you are connected to the internet )
 - ✅ Automated Setup – A simple installation script sets up everything in `/opt/AdminAssist`.
 - ✅ Modular Design – Tasks are divided into separate scripts for better organization (e.g., `db.sh` for database management, `wp.sh` for WordPress-related tasks).
 - ✅ System Integration – The installer creates a shortcut (`BK`) for easy execution from anywhere.
@@ -68,6 +69,24 @@ This gives you full control over when and how you install AdminAssist.
 
 ---
 
+### 2. Using Docker for forked repo
+
+
+This will copy the contents from the current directory into the container rather than cloning from the latest repository. ( You can fork the repo and use this Dockerfile2 to test the changes made from your side as this will just use the repo on your machine )
+
+You can run the below command to get the Docker container with the current codes
+
+```bash
+sudo docker build -t testing -f Dockerfile2 .
+```
+Installation would be the same as in the previous step
+
+```bash
+cd /root/AdminAssist
+chmod +x install.sh
+./install.sh
+```
+
 ### Enable Auto-Completion (Optional)
 
 To enable tab completion, run:
@@ -83,16 +102,17 @@ source /opt/AdminAssist/autoCompletion.sh
 Once installed, you can use AdminAssist through the `BK` command:
 
 ```bash
-BK deb              # Check debug mode  
-BK tdeb             # Toggle debug mode  
-BK db               # Get database details  
-BK upgrade          # Upgrade the WordPress installation  
-BK theme            # List installed WordPress themes  
-BK fix_db           # Fix database connectivity errors  
-BK nginx            # View nginx error logs
-BK apache           # View Apache error logs
-BK add_custom_rule  # Assist in adding nginx custom Rule  
-BK ipcheck          # Check if an IP is public or private
+BK chat              # To get the ChatBot interface
+BK deb               # Check debug mode  
+BK tdeb              # Toggle debug mode  
+BK db                # Get database details  
+BK upgrade           # Upgrade the WordPress installation  
+BK theme             # List installed WordPress themes  
+BK fix_db            # Fix database connectivity errors  
+BK nginx             # View nginx error logs
+BK apache            # View Apache error logs
+BK add_custom_rule   # Assist in adding nginx custom Rule  
+BK ipcheck           # Check if an IP is public or private
 ```
 
 ---
@@ -110,6 +130,7 @@ Existing installation found
 ## Modules
 
 - `install.sh` – Install the script
+- `chat` – Online AI chatbot
 - `BK.sh` – Main script handling commands
 - `configuration.conf` – Stores user-defined settings
 - `Debug.sh` – Implements script debugging
@@ -127,22 +148,26 @@ Existing installation found
 
 ## ⚠️ Autocompletion Issue
 
-We've noticed that **autocompletion isn't working as expected** for all shelss when opening a new shell. If it automatically doesn't work for new bash shells, please try sourcing the autocompletion file.
+We've noticed that **autocompletion isn't working as expected everytime** for all shells when opening a new shell. If it automatically doesn't work for new bash shells, please try sourcing the autocompletion file. 
 
 ```bash
 source /opt/AdminAssist/autoCompletion.sh
 ```
-
-### 🛠 What's Happening?
-
-- The completion script **exists** but doesn't load automatically for all shells.
-- It **only works when sourced manually**.
 
 ### 🤔 Possible Causes
 
 - The completion script might not be in the correct location.
 - The shell might not be loading it at startup.
 - There could be an issue with how Bash is handling autocompletion.
+
+## ⚠️ Logging issue
+
+I was able to see that **Even though the script works, the scripts might produce some logs or error messages while running without installing first**. 
+
+### 🛠 What's Happening?
+
+- This is because the necessary log files has not been generated yet.
+
 
 ### 🔍 Need Help!
 

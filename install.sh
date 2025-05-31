@@ -44,7 +44,7 @@ install(){
 	set -e
 	if [[ -d $ASH ]]; then
 		echo $ASH
-		printf '%s\n' "${YELLOW}You already have Oh My Bash installed.${NORMAL}" >&2
+		printf '%s\n' "${YELLOW}You already have the AdminAssist installed.${NORMAL}" >&2
 		print_doggy
 		printf '%s\n' "You'll need to remove '$ASH' if you want to re-install it." >&2
 		return 1
