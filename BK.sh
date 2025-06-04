@@ -18,6 +18,7 @@ source "$BASE_DIR/log.sh"
 source "$BASE_DIR/ScriptHealth.sh"
 source "$BASE_DIR/Cpanel.sh"
 custom_rule="$BASE_DIR/custom_rule"
+mkdir -p $custom_log_dir || custom_log_dir=$BASE_DIR
 
 # Wordpress latest version to use for upgrade
 wp_url="https://wordpress.org/latest.zip"
@@ -173,6 +174,8 @@ uninstall(){
 }
 
 function chat(){
+	echo -e "$LIGHT_GREEN The chat wont work on context with the project ( Safe to say that the bot doesn't even know this project :) )$NC"
+	echo -e "$LIGHT_GREEN Due to limitation with the free Grok API, unfortunately the chat persistance support is not supported yet. Hoping to implementing this in future$NC"
 	 $BASE_DIR/chat
 }
 

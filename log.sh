@@ -13,8 +13,8 @@ log(){
 		USER=$(whoami)
 		DIRECTORY=$(pwd)
 		COMMAND="$0 $*"  # Captures full command with arguments
-		echo "[$TIMESTAMP] User: $USER | Directory: $DIRECTORY | Command: $COMMAND" >> $COMMAND_LOG
-		echo >> $COMMAND_LOG
+		echo "[$TIMESTAMP] User: $USER | Directory: $DIRECTORY | Command: $COMMAND" >> $COMMAND_LOG &> /dev/null
+		echo >> $COMMAND_LOG &>/dev/null
 	fi
 
 }
@@ -28,6 +28,6 @@ flog() {
 		local timestamp="$(date '+%Y-%m-%d %H:%M:%S')"
 		local user="$USER"
 		local cwd="$(pwd)"
-		echo "[$timestamp] [$user] [Function: $caller] [Dir: $cwd] - $1" >> "$COMMAND_LOG"
+		echo "[$timestamp] [$user] [Function: $caller] [Dir: $cwd] - $1" >> "$COMMAND_LOG" &>/dev/null
 	fi
 }
