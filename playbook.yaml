@@ -1,11 +1,25 @@
 ---
-- name: Ansible playbook for deploying AdminAssist with CI/ CD
+- name: Ansible playbook for deploying AdminAssist with CI/CD
   hosts: production-server
-  tasks:
-    - name: deploy the application in the production servers
-      git:
-          repo: https://github.com/krishnaprasad-2001/AdminAssist
-          clone: yes
-          dest: /root/test
-          depth: 1
+  become: yes
+  remote_user: root
 
+  tasks:
+    - name: Clone the AdminAssist repository
+      git:
+        repo: https://github.com/krishnaprasad-2001/AdminAssist
+        dest: /opt/AdminAssist
+        depth: 1
+        force: yes  # optional: allows updating existing clone
+
+    - name: Make the softlink for BK.sh
+      file:
+        src: /opt/AdminAssist/BK.sh
+        dest: /usr/bin/BK
+        state: link
+        force: yes
+
+    - name: Source the autocompletion script
+      shell: source /opt/AdminAssist/autoCompletion.sh
+      args:
+        executable: /bin/bash

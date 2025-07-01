@@ -47,21 +47,6 @@ check_wp(){
 	then
 		 echo "Wordpress installation found"
 		 grep "wp_version" wp-includes/version.php |grep -v "global"
-
-		 # PS, the below find may be used as a boilerplate template to implement a function that could check for the installation directory
-		 # headerlocation=$(grep -i blog-header.php index.php |grep require |cut -d\' -f2 )
-		 # if [ $headerlocation = "/wp-blog-header.php" ]
-		 # then
-			 # echo "wordpress in default location"
-		 # else
-			# loc=$(grep -i blog-header.php index.php |grep require |cut -d\' -f2  |cut -d"/" -f2 ) 
-			# if [ loc = "wp-blog-header.php" ]
-			# then
-			#
-			# else
-				# directory_installation=$loc;
-			# fi
-		 # fi
 	fi
 }
 

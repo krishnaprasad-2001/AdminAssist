@@ -10,7 +10,8 @@ AdminAssist is a powerful tool designed to assist server administrators and supp
 - ✅ AI Chatbot – Online based AI chatbot that just helps you get things done. ( Since this is online chatbot, this only  works when you are connected to the internet )
 - ✅ Automated Setup – A simple installation script sets up everything in `/opt/AdminAssist`.
 - ✅ Modular Design – Tasks are divided into separate scripts for better organization (e.g., `db.sh` for database management, `wp.sh` for WordPress-related tasks).
-- ✅ System Integration – The installer creates a shortcut (`BK`) for easy execution from anywhere.
+- ✅ System Integration – The installer creates a shortcut (`BK`) BashKit for easy execution from anywhere.
+- ✅ Docker test – Implemented a Docker module to check the script by running this in a container.
 
 ## Getting Started
 
@@ -71,7 +72,6 @@ This gives you full control over when and how you install AdminAssist.
 
 ### 2. Using Docker for forked repo
 
-
 This will copy the contents from the current directory into the container rather than cloning from the latest repository. ( You can fork the repo and use this Dockerfile2 to test the changes made from your side as this will just use the repo on your machine )
 
 You can run the below command to get the Docker container with the current codes
@@ -103,6 +103,7 @@ Once installed, you can use AdminAssist through the `BK` command:
 
 ```bash
 BK chat              # To get the ChatBot interface
+BK chat              # To get the ChatBot interface
 BK deb               # Check debug mode  
 BK tdeb              # Toggle debug mode  
 BK db                # Get database details  
@@ -113,6 +114,8 @@ BK nginx             # View nginx error logs
 BK apache            # View Apache error logs
 BK add_custom_rule   # Assist in adding nginx custom Rule  
 BK ipcheck           # Check if an IP is public or private
+BK dockertest        # Try out the installation by Docker container. 
+BK dockerforktest    # Try out your forked changes inside a Docker container.
 ```
 
 ---
@@ -178,3 +181,15 @@ If you have any ideas, feel free to **open an issue** or **submit a pull request
 ## Contributing
 
 We welcome contributions! Fork, make changes, and submit a pull request.
+
+💬 This project is open-source and free to use under the MIT license. Feel free to fork, improve, or use it in your own tools!
+
+---
+
+### 💬 From the Creator
+
+> I tried to polish this project for too long, thinking it had to be “perfect” before I shared it. But perfection isn’t how we grow — collaboration is.
+>
+> I’m still learning, and this project is far from complete. If it helps you, great! If you have ideas or feedback, even better.
+>
+> Thanks for checking out AdminAssist — and thanks for supporting creators who are still figuring it out. 🙌
