@@ -1,9 +1,12 @@
 BASE_DIR=$(dirname "$(realpath "$0")")
 checkNginxErrorLog(){
+	# checks if the nginx process is running else not declare that to be non nginx server ( That is just lazy writing )
 	if [[ `ps -acx|grep nginx|wc -l` -le 0 ]]; then
 		echo "Not an nginx server"
 		exit 1;
 	fi
+
+	# Find the user and the domain details from the current location ( Works only for cpanel servers )
 	read -p "Enter the domain name(Press enter if you are already in the homedirectory): "
 	domain=$REPLY
 	if [ -z $domain ]

@@ -121,11 +121,25 @@ init(){
 		dockerforktest)
 			dockerforktest;
 		;;
+		check)
+			service_check "$2";
+		;;
 		*)
 			main "$@"
 		;;
 	esac
 }
+
+function service_check() {
+	echo $1
+	if [ $# -lt 1 ]; then
+		echo -e "${RED}Please provide the service name${NC}"
+		return 1
+	fi
+	service_name="$1"
+	bash service.sh "$service_name"
+}
+
 
 # Help functionality
 get_help(){ 

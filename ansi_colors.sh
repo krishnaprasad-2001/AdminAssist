@@ -1,4 +1,5 @@
 # ansi_colors.sh
+# Collection of the color strings ( Use this and make your life a bit colorfult )
 
 # Text colors
 BLACK='\033[0;30m'

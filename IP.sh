@@ -24,7 +24,7 @@ is_private_ip() {
 # checking if the IP is a valid IP ( As in the fact that every IP have 4 octects each)
 function checkIpValidity(){
     local ip="$1"
-    # Pattern on how an IP should look like
+    # Pattern on how an IP should look like 
     local octet="(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])"
     local pattern="^$octet\\.$octet\\.$octet\\.$octet$"
 

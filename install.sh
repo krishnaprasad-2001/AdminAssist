@@ -1,8 +1,13 @@
 #!/bin/bash
+
+# When I was working on this code, only god and I knew what all these were. Now only god knows.
+
 BASE_DIR=$(dirname "$(realpath "$0")")
 # source "$BASE_DIR/configuration.conf"
 source "$BASE_DIR/fun.sh"
 E_EXISTING_INSTALLATION_FOUND=1;
+
+# declaring an associative array so as to store configuration
 declare -A conf
 
 # Get the configuration values from configuration.conf file.
@@ -13,8 +18,12 @@ set_configuration(){
 		if [[ -z "$key" || "$key" =~ ^# ]]; then
 			continue
 		fi
+
+		# Storing the in a key value pair ( Thanks to eddie at YSAP channel)
 		conf[$key]=$value
 	done < $BASE_DIR/configuration.conf
+
+	# if the file is writable then make it the error log for the tool
 	if [ ! -w "$ERROR_LOG" ]; then
 		conf[ERROR_LOG]="$ASH/ERROR_LOG"
 	fi
@@ -35,6 +44,8 @@ install(){
 	else
 		# If no install_prefix is specified, use the default location
 		echo "installing in default $ASH"
+
+		# AdminAssist installation path
 		ASH=~/.AdminAssist
 	fi
 	if [[ ! $ASH_REPOSITORY ]]; then
@@ -51,16 +62,22 @@ install(){
 	fi
 	umask g-w,o-w
 	printf '%s\n' "${BLUE}Cloning Admin Assist...${NORMAL}"
+
+	# Checking if the git tool is installed in the machine.
 	type -P git &>/dev/null || {
 		echo "Error: git is not installed"
 			return 1
 		}
+
+	# execute_command is the tool that is just used to execute the command along with loggin it.
 	execute_command git clone --depth=1 -q "$ASH_REPOSITORY" "$ASH" >/dev/null || {
 		printf "Error: git clone of AdminAssist repo failed\n"
 			return 1
 		}
 	set_configuration
 	touch ${conf[ERROR_LOG]}
+
+	# This will check if the function or the file is executed by the user in an interactive terminal. ( As there is an dockertool to check so may not alwasy be in interactive mode)) 
 	if [[ -t 0 ]]; then
 		# If running interactively, prompt user
 		read -p "Do you want to change this? (y/n): " choice
@@ -72,8 +89,12 @@ install(){
 		echo "Running non-interactively, skipping user prompt."
 	fi
 
+	# The stuff behind the command BK running 
 	execute_command ln -s $ASH/BK.sh /usr/bin/BK &>> ${conf[ERROR_LOG]}
+
+	# Probably the best part of the script that just works.
 	print_doggy
+
 	execute_command echo -e "Execute \e[34m source /opt/AdminAssist/autoCompletion.sh \e[0m to enable tab completion"
 	execute_command echo "source $ASH/autoCompletion.sh" >> ~/.bashrc
 	# execute_command # bash --rcfile <(cat ~/.bashrc; echo "source /opt/AdminAssist/autoCompletion.sh")
@@ -139,6 +160,8 @@ function execute_command {
 }
 
 function install_main {
+
+	# first check for the color support 
 	local ncolors=
 	if type -P tput &>/dev/null; then
 		ncolors=$(tput colors 2>/dev/null || tput Co 2>/dev/null || echo -1)
