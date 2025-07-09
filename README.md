@@ -8,11 +8,34 @@ AdminAssist is a powerful tool designed to assist server administrators and supp
 
 - ✅ Best for WordPress Troubleshooting – Easily detect WordPress installations, check database connectivity, list installed themes, and fix common issues.
 - ✅ AI Chatbot – Online based AI chatbot that just helps you get things done. ( Since this is online chatbot, this only  works when you are connected to the internet )
+- ✅ Service check - Service checking module that looks up the recent service log and advise with the help of AI.
 - ✅ Automated Setup – A simple installation script sets up everything in `/opt/AdminAssist`.
 - ✅ Modular Design – Tasks are divided into separate scripts for better organization (e.g., `db.sh` for database management, `wp.sh` for WordPress-related tasks).
 - ✅ System Integration – The installer creates a shortcut (`BK`) BashKit for easy execution from anywhere.
 - ✅ Docker test – Implemented a Docker module to check the script by running this in a container.
 
+## Usage
+
+Once installed, you can use AdminAssist through the `BK` command:
+
+```bash
+BK chat              # To get the ChatBot interface
+BK servce            # Will check the service logs and advise with cause and resolution with AI.
+BK deb               # Check debug mode  
+BK tdeb              # Toggle debug mode  
+BK db                # Get database details  
+BK upgrade           # Upgrade the WordPress installation  
+BK theme             # List installed WordPress themes  
+BK fix_db            # Fix database connectivity errors  
+BK nginx             # View nginx error logs
+BK apache            # View Apache error logs
+BK add_custom_rule   # Assist in adding nginx custom Rule  
+BK ipcheck           # Check if an IP is public or private
+BK dockertest        # Try out the installation by Docker container. 
+BK dockerforktest    # Try out your forked changes inside a Docker container.
+```
+
+---
 ## Getting Started
 
 ### Clone the Repository
@@ -70,7 +93,7 @@ This gives you full control over when and how you install AdminAssist.
 
 ---
 
-### 2. Using Docker for forked repo
+### 3. Using Docker for forked repo
 
 This will copy the contents from the current directory into the container rather than cloning from the latest repository. ( You can fork the repo and use this Dockerfile2 to test the changes made from your side as this will just use the repo on your machine )
 
@@ -87,35 +110,36 @@ chmod +x install.sh
 ./install.sh
 ```
 
-### Enable Auto-Completion (Optional)
 
-To enable tab completion, run:
+### 🤖 4. AI-Powered Service Diagnosis (New Module)
 
-```bash
-source /opt/AdminAssist/autoCompletion.sh
-```
+Because AI is everywhere — so why not in the terminal too?
+
+This new module in **AdminAssist** uses a Groq-powered AI model to help you **diagnose broken `systemd` services** in plain English, complete with suggestions and potential fixes.
 
 ---
 
-## Usage
+#### How It Works
 
-Once installed, you can use AdminAssist through the `BK` command:
+- Uses standard tools like `systemctl` and `journalctl` to collect logs
+- Passes those logs to an LLM via a **local binary (`chat2`)**
+- The AI analyzes the logs and status, then returns:
+  - A short summary of the problem  
+  - Likely cause  
+  - Suggested commands to resolve it
+
+---
+
+#### Usage
+
+> **Important:**  
+> Please make sure to **restart or start the service first** so that logs exist —  
+> otherwise there won't be anything to analyze!
+
+Run:
 
 ```bash
-BK chat              # To get the ChatBot interface
-BK chat              # To get the ChatBot interface
-BK deb               # Check debug mode  
-BK tdeb              # Toggle debug mode  
-BK db                # Get database details  
-BK upgrade           # Upgrade the WordPress installation  
-BK theme             # List installed WordPress themes  
-BK fix_db            # Fix database connectivity errors  
-BK nginx             # View nginx error logs
-BK apache            # View Apache error logs
-BK add_custom_rule   # Assist in adding nginx custom Rule  
-BK ipcheck           # Check if an IP is public or private
-BK dockertest        # Try out the installation by Docker container. 
-BK dockerforktest    # Try out your forked changes inside a Docker container.
+BK check servicename
 ```
 
 ---
@@ -130,11 +154,24 @@ Existing installation found
 
 ---
 
+#### 🛠️ Want to Customize the service module?
+
+A template of the binary’s source is provided (with the API key removed). This file is named as chat2.sh and the main service file is service.sh
+You're free to:
+- 🔑 Add your own Groq API key  
+- 🧠 Modify how the AI is called or what data is sent  
+- 🧪 Customize behavior based on your own use cases
+
+This keeps the tool flexible — while making sure the actual key stays secure on your end.
+
+---
+
 ## Modules
 
+- `BK.sh` – Main script handling commands
 - `install.sh` – Install the script
 - `chat` – Online AI chatbot
-- `BK.sh` – Main script handling commands
+- `service.sh` – Module implemented to check service status with chatbot support ( Compiled binary to protect API key )
 - `configuration.conf` – Stores user-defined settings
 - `Debug.sh` – Implements script debugging
 - `log.sh` – Script-specific logging functionality
@@ -146,6 +183,17 @@ Existing installation found
 - `Wordpress.sh` – WordPress-related tasks
 - `Database.sh` – Deep database tasks
 - `Cpanel.sh` – cPanel verification and modules
+
+---
+
+#### ⚠️ Note: The service module won't work on docker test
+
+This module depends on `systemctl` and `journalctl`, which **aren’t available inside most Docker containers** by default.  
+If you're testing AdminAssist in a Docker environment, this feature will not function correctly.
+
+👉 To use the AI-powered diagnosis module, run AdminAssist **on a real system with `systemd` installed and active**.
+
+Support for container-compatible service inspection may come in the future.
 
 ---
 
@@ -162,15 +210,6 @@ source /opt/AdminAssist/autoCompletion.sh
 - The completion script might not be in the correct location.
 - The shell might not be loading it at startup.
 - There could be an issue with how Bash is handling autocompletion.
-
-## ⚠️ Logging issue
-
-I was able to see that **Even though the script works, the scripts might produce some logs or error messages while running without installing first**. 
-
-### 🛠 What's Happening?
-
-- This is because the necessary log files has not been generated yet.
-
 
 ### 🔍 Need Help!
 

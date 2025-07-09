@@ -11,6 +11,7 @@ if systemctl list-unit-files --type=service | grep -q "$service"; then
 	if [ "$matches" -gt 1 ]; then
 		serviceList=$(systemctl list-unit-files --type=service | grep "$service")
 		SELECTED=$(echo "$serviceList" | fzf --prompt="Pick a service: ")
+		# SELECTED=$(echo "$serviceList" | gum choose)
 		service=$(echo "$SELECTED" | awk '{print $1}')
 	else
 		service=$(systemctl list-unit-files --type=service | grep "$service" | awk '{print $1}')

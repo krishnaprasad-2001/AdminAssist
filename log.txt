@@ -1,13 +1,125 @@
-Jul 07 11:56:29 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 11:58:38 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 12:05:16 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 12:05:33 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-○ httpd.service - Apache Web Server
-     Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; preset: disabled)
-     Active: inactive (dead)
-
-Jul 07 11:56:29 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 11:58:38 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 12:05:16 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 12:05:33 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
-Jul 07 12:21:51 archlinux systemd[1]: /usr/lib/systemd/system/httpd.service:6: Unknown key 'ype' in section [Service], ignoring.
+● archlinux
+    State: running
+    Units: 344 loaded (incl. loaded aliases)
+     Jobs: 0 queued
+   Failed: 0 units
+    Since: Wed 2025-07-09 06:51:48 IST; 3h 6min ago
+  systemd: 257.4-1-arch
+   CGroup: /
+           ├─init.scope
+           │ └─1 /sbin/init
+           ├─system.slice
+           │ ├─NetworkManager.service
+           │ │ └─534 /usr/bin/NetworkManager --no-daemon
+           │ ├─bluetooth.service
+           │ │ └─728 /usr/lib/bluetooth/bluetoothd
+           │ ├─dbus-broker.service
+           │ │ ├─509 /usr/bin/dbus-broker-launch --scope system --audit
+           │ │ └─533 dbus-broker --log 4 --controller 9 --machine-id a2e706d3b5a14a0cbcb3553fb9446cbe --max-bytes 536870912 --max-fds 4096 --max-matches 131072 --audit
+           │ ├─ly.service
+           │ │ └─623 /usr/bin/ly-dm
+           │ ├─polkit.service
+           │ │ └─858 /usr/lib/polkit-1/polkitd --no-debug --log-level=notice
+           │ ├─rtkit-daemon.service
+           │ │ └─845 /usr/lib/rtkit-daemon
+           │ ├─sys-top-logger.service
+           │ │ ├─  600 /bin/bash /usr/local/bin/sys_top_logger.sh
+           │ │ └─61482 sleep 1
+           │ ├─system-getty.slice
+           │ │ └─getty@tty1.service
+           │ │   └─622 /sbin/agetty -o "-- \\u" --noreset --noclear - linux
+           │ ├─systemd-journald.service
+           │ │ └─329 /usr/lib/systemd/systemd-journald
+           │ ├─systemd-logind.service
+           │ │ └─536 /usr/lib/systemd/systemd-logind
+           │ ├─systemd-timesyncd.service
+           │ │ └─373 /usr/lib/systemd/systemd-timesyncd
+           │ ├─systemd-udevd.service
+           │ │ └─udev
+           │ │   └─379 /usr/lib/systemd/systemd-udevd
+           │ ├─systemd-userdbd.service
+           │ │ ├─  344 /usr/lib/systemd/systemd-userdbd
+           │ │ ├─60916 "systemd-userwork: waiting..."
+           │ │ ├─61075 "systemd-userwork: waiting..."
+           │ │ └─61148 "systemd-userwork: waiting..."
+           │ ├─upower.service
+           │ │ └─6539 /usr/lib/upowerd
+           │ └─wpa_supplicant.service
+           │   └─633 /usr/bin/wpa_supplicant -u -s -O /run/wpa_supplicant
+           └─user.slice
+             └─user-1000.slice
+               ├─session-1.scope
+               │ ├─  675 /usr/bin/ly-dm
+               │ ├─  700 /usr/bin/ly-dm
+               │ ├─  707 /usr/lib/Xorg :0 vt2
+               │ ├─  749 i3
+               │ ├─  772 dunst
+               │ ├─  779 cherrytree
+               │ ├─ 6024 /usr/bin/bash
+               │ ├─ 6039 /usr/lib/firefox/firefox
+               │ ├─ 6101 /usr/lib/firefox/firefox -contentproc -parentBuildID 20250327171315 -prefsHandle 0 -prefsLen 36615 -prefMapHandle 1 -prefMapSize 265586 -sandboxReporter 2 -chrootClient 3 -ipcHandle 4 -initialChannelId {4e3aec9d-18d5-4925-aa48-6680a7f11ce0} -parentPid 6039 -crashReporter 5 -appDir /usr/lib/firefox/browser 1 socket
+               │ ├─ 6144 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 36756 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {28cbec15-2407-4b8f-91ed-fabb9be967f8} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 2 tab
+               │ ├─ 6149 /usr/lib/firefox/firefox -contentproc -parentBuildID 20250327171315 -prefsHandle 0 -prefsLen 36756 -prefMapHandle 1 -prefMapSize 265586 -sandboxReporter 2 -chrootClient 3 -ipcHandle 4 -initialChannelId {bffcef87-160b-45d6-a77f-ff87db8550b2} -parentPid 6039 -crashReporter 5 -appDir /usr/lib/firefox/browser 3 rdd
+               │ ├─ 6207 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 44898 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {356f6b7e-c54a-496a-be9a-fcc80a681d7f} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 4 tab
+               │ ├─ 6268 /usr/lib/firefox/firefox -contentproc -parentBuildID 20250327171315 -sandboxingKind 0 -prefsHandle 0 -prefsLen 45042 -prefMapHandle 1 -prefMapSize 265586 -sandboxReporter 2 -chrootClient 3 -ipcHandle 4 -initialChannelId {3a3a045d-b776-4b68-8ce6-ad9db083ea0f} -parentPid 6039 -crashReporter 5 -appDir /usr/lib/firefox/browser 5 utility
+               │ ├─ 6276 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39008 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {c844434f-a388-41bc-be97-c507e790ba68} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 6 tab
+               │ ├─ 6287 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39060 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {f006c8c3-20d1-4979-8a50-f23ff5cdc183} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 8 tab
+               │ ├─15961 kitty
+               │ ├─15965 /usr/bin/kitten __atexit__
+               │ ├─42095 /usr/bin/bash
+               │ ├─42112 telegram-desktop
+               │ ├─43109 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39297 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {2f2d4e4b-8e9e-45b9-9598-f90e5465baf9} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 76 tab
+               │ ├─57262 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39297 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {a6c6f0e2-14cc-4888-aaaa-2305c4ebbfb1} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 97 tab
+               │ ├─59126 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39297 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {369e9af3-b2fa-4e27-95b9-5b2373c75994} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 103 tab
+               │ ├─59374 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39297 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {28b5e748-52b6-4c0b-8dd2-effa0c5e2932} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 104 tab
+               │ └─61046 /usr/lib/firefox/firefox -contentproc -isForBrowser -prefsHandle 0 -prefsLen 39297 -prefMapHandle 1 -prefMapSize 265586 -jsInitHandle 2 -jsInitLen 247588 -parentBuildID 20250327171315 -sandboxReporter 3 -chrootClient 4 -ipcHandle 5 -initialChannelId {84ec03be-6f9e-44a9-93db-180ec95b2f50} -parentPid 6039 -crashReporter 6 -greomni /usr/lib/firefox/omni.ja -appomni /usr/lib/firefox/browser/omni.ja -appDir /usr/lib/firefox/browser 105 tab
+               └─user@1000.service
+                 ├─app.slice
+                 │ ├─app-dbus\x2d:1.9\x2dorg.a11y.atspi.Registry.slice
+                 │ │ └─dbus-:1.9-org.a11y.atspi.Registry@0.service
+                 │ │   └─839 /usr/lib/at-spi2-registryd --use-gnome-session
+                 │ └─xdg-desktop-portal-gtk.service
+                 │   └─833 /usr/lib/xdg-desktop-portal-gtk
+                 ├─init.scope
+                 │ ├─688 /usr/lib/systemd/systemd --user
+                 │ └─690 "(sd-pam)"
+                 ├─kitty-15650-0.scope
+                 │ └─15807 tmux
+                 ├─kitty-15961-0.scope
+                 │ ├─15972 /usr/bin/bash --posix
+                 │ ├─60653 nvim service.sh
+                 │ ├─60654 nvim --embed service.sh
+                 │ ├─60656 node /sbin/bash-language-server start
+                 │ ├─61174 /sbin/xclip -quiet -i -selection clipboard
+                 │ ├─61261 bash BK.sh check ht
+                 │ ├─61314 bash service.sh ht
+                 │ └─61488 systemctl status
+                 ├─session.slice
+                 │ ├─at-spi-dbus-bus.service
+                 │ │ ├─806 /usr/lib/at-spi-bus-launcher
+                 │ │ ├─812 /usr/bin/dbus-broker-launch --config-file=/usr/share/defaults/at-spi2/accessibility.conf --scope user
+                 │ │ └─813 dbus-broker --log 4 --controller 9 --machine-id a2e706d3b5a14a0cbcb3553fb9446cbe --max-bytes 100000000000000 --max-fds 6400000 --max-matches 5000000000
+                 │ ├─dbus-broker.service
+                 │ │ ├─767 /usr/bin/dbus-broker-launch --scope user
+                 │ │ └─768 dbus-broker --log 4 --controller 10 --machine-id a2e706d3b5a14a0cbcb3553fb9446cbe --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
+                 │ ├─gvfs-daemon.service
+                 │ │ ├─792 /usr/lib/gvfsd
+                 │ │ └─798 /usr/lib/gvfsd-fuse /run/user/1000/gvfs -f
+                 │ ├─gvfs-metadata.service
+                 │ │ └─47103 /usr/lib/gvfsd-metadata
+                 │ ├─pipewire-pulse.service
+                 │ │ └─902 /usr/bin/pipewire-pulse
+                 │ ├─pipewire.service
+                 │ │ └─849 /usr/bin/pipewire
+                 │ ├─wireplumber.service
+                 │ │ └─850 /usr/bin/wireplumber
+                 │ ├─xdg-desktop-portal.service
+                 │ │ └─814 /usr/lib/xdg-desktop-portal
+                 │ ├─xdg-document-portal.service
+                 │ │ ├─824 /usr/lib/xdg-document-portal
+                 │ │ └─830 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+                 │ └─xdg-permission-store.service
+                 │   └─819 /usr/lib/xdg-permission-store
+                 └─tmux-spawn-01cadea5-5ad1-4a20-8992-e9ba0288859a.scope
+                   ├─15898 -bash
+                   └─15918 picom
