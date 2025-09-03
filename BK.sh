@@ -17,6 +17,7 @@ source "$BASE_DIR/Nginx.sh"
 source "$BASE_DIR/log.sh"
 source "$BASE_DIR/ScriptHealth.sh"
 source "$BASE_DIR/Cpanel.sh"
+source "$BASE_DIR/aws/aws.sh"
 custom_rule="$BASE_DIR/custom_rule"
 mkdir -p $custom_log_dir || custom_log_dir=$BASE_DIR
 
@@ -123,6 +124,9 @@ init(){
 		;;
 		check)
 			service_check "$2";
+		;;
+		aws)
+            aws_main "$@"
 		;;
 		*)
 			main "$@"
